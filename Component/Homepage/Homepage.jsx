@@ -4,11 +4,25 @@ import { useState } from "react";
 
 const Homepage = ({ navigation }) => {
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [mobile, setMobile] = useState('');
-    const [address, setAddress] = useState('');
+    const [formData, setFormData] = useState({
+        name: 'Abdul',
+        email: 'abdul@gmail.com',
+        password: '1234',
+        mobile: 9545282488,
+        address: 'Mumbai'
+    });
+
+    // HANDLE INPUT FUNCTION TO UPDATE FORMDATA USEING USEFORMDATA STATE
+    const handleInput = (nativeEvent, prop) => {
+        const value = nativeEvent.text;
+
+        setFormData((oldData) => {
+            return {
+                ...oldData,
+                [prop]: value
+            }
+        })
+    }
 
     return (
         <View style={Styles.main}>
@@ -25,48 +39,52 @@ const Homepage = ({ navigation }) => {
                 <View style={{ padding: 8 }}>
                     <Text style={Styles.title}>Register Now</Text>
                     <TextInput
+                        name='name'
                         placeholder="Your Name"
-                        onChangeText={setName}
                         placeholderTextColor={'grey'}
+                        value={formData.name}
+                        onChange={({ nativeEvent }) => handleInput(nativeEvent, 'name')}
                         style={Styles.input}
                     />
                     <TextInput
+                        name="email"
                         placeholder="Email"
                         placeholderTextColor={'grey'}
+                        value={formData.email}
                         keyboardType="email-address"
-                        onChangeText={setEmail}
+                        onChange={({ nativeEvent }) => handleInput(nativeEvent, 'email')}
                         style={Styles.input}
                     />
                     <TextInput
+                        name="password"
                         placeholder="Password"
                         placeholderTextColor={'grey'}
+                        value={formData.password}
                         secureTextEntry={true}
-                        onChangeText={setPassword}
+                        onChange={({ nativeEvent }) => handleInput(nativeEvent, 'password')}
                         style={Styles.input}
                     />
                     <TextInput
+                        name="mobile"
                         placeholder="Mobile"
                         placeholderTextColor={'grey'}
+                        value={formData.mobile}
                         keyboardType="phone-pad"
-                        onChangeText={setMobile}
+                        onChange={({ nativeEvent }) => handleInput(nativeEvent, 'mobile')}
                         style={Styles.input}
                     />
                     <TextInput
+                        name="address"
                         placeholder="Address"
                         placeholderTextColor={'grey'}
+                        value={formData.address}
                         multiline={true}
-                        onChangeText={setAddress}
+                        onChange={({ nativeEvent }) => handleInput(nativeEvent, 'address')}
                         style={{ ...Styles.input, ...Styles.textArea }}
                     />
                     <TouchableOpacity
                         style={Styles.button}
-                        onPress={() => console.log({
-                            name,
-                            email,
-                            password,
-                            mobile,
-                            address
-                        })}
+                        onPress={() => console.log(formData)}
                     >
                         <Text style={Styles.text}>SUBMIT</Text>
                     </TouchableOpacity>
@@ -74,8 +92,8 @@ const Homepage = ({ navigation }) => {
                 <View style={Styles.footer}>
                     <Text style={Styles.text}>Developed By JFC !</Text>
                 </View>
-            </ScrollView>
-        </View>
+            </ScrollView >
+        </View >
     );
 }
 
